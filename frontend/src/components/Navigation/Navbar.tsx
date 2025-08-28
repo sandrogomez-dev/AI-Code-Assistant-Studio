@@ -1,11 +1,12 @@
 import { useState } from 'react';
 import { useTheme } from '@/hooks/useTheme';
-import { SunIcon, MoonIcon, UserCircleIcon } from '@heroicons/react/24/outline';
+import { useAuthStore } from '@/stores/authStore';
+import { SunIcon, MoonIcon, UserCircleIcon, ArrowRightOnRectangleIcon } from '@heroicons/react/24/outline';
 import AuthModal from '@/components/Auth/AuthModal';
 
 export default function Navbar() {
   const { theme, toggleTheme } = useTheme();
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const { isAuthenticated, user, logout } = useAuthStore();
   const [showAuthModal, setShowAuthModal] = useState(false);
 
   return (
@@ -31,10 +32,14 @@ export default function Navbar() {
                 )}
               </button>
 
-              {isLoggedIn ? (
-                <div className="relative ml-3">
-                  <button className="flex rounded-full bg-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
-                    <UserCircleIcon className="h-8 w-8 text-gray-400" />
+              {isAuthenticated ? (
+                <div className="flex items-center gap-4">
+                  <span className="text-sm text-gray-300">{user?.username}</span>
+                  <button
+                    onClick={logout}
+                    className="rounded-md p-2 text-gray-400 hover:bg-gray-800 hover:text-white"
+                  >
+                    <ArrowRightOnRectangleIcon className="h-5 w-5" />
                   </button>
                 </div>
               ) : (

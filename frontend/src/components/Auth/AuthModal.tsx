@@ -1,5 +1,6 @@
 import { Fragment, useState } from 'react';
 import { Dialog, Transition } from '@headlessui/react';
+import { useAuthStore } from '@/stores/authStore';
 import LoginForm from './LoginForm';
 import RegisterForm from './RegisterForm';
 
@@ -10,24 +11,25 @@ interface AuthModalProps {
 
 export default function AuthModal({ isOpen, onClose }: AuthModalProps) {
   const [isLogin, setIsLogin] = useState(true);
+  const { login, register } = useAuthStore();
 
   const handleLogin = async (email: string, password: string) => {
     try {
-      // TODO: Implement login logic
-      console.log('Login:', { email, password });
+      await login(email, password);
       onClose();
     } catch (error) {
       console.error('Login error:', error);
+      // TODO: Show error message to user
     }
   };
 
   const handleRegister = async (username: string, email: string, password: string) => {
     try {
-      // TODO: Implement register logic
-      console.log('Register:', { username, email, password });
+      await register(username, email, password);
       onClose();
     } catch (error) {
       console.error('Register error:', error);
+      // TODO: Show error message to user
     }
   };
 
