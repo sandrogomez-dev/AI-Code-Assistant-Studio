@@ -2,46 +2,59 @@
 
 An enterprise-level web platform for AI-powered code generation, debugging, and collaboration.
 
-## Features
+## Features 🌟
 
-- 🤖 AI-Powered Code Generation
-- 🔍 Intelligent Debugging Assistant
-- 📊 Code Analysis & Optimization
-- 👥 Real-time Collaboration
-- 📝 Automated Documentation
-- 🔒 Enterprise-grade Security
+- 🤖 **AI-Powered Code Generation**
+  - Generate code snippets from natural language descriptions
+  - Multi-language support
+  - Context-aware suggestions
 
-## Tech Stack
+- 🔍 **Intelligent Debugging**
+  - Automated error detection
+  - Performance optimization suggestions
+  - Security vulnerability scanning
+
+- 📊 **Code Analysis**
+  - Real-time code quality metrics
+  - Performance bottleneck detection
+  - Best practices recommendations
+
+- 👥 **Real-time Collaboration**
+  - Multi-user editing
+  - Live code sharing
+  - Instant feedback
+
+## Tech Stack 💻
 
 ### Frontend
-- Next.js 14
-- TypeScript
-- Monaco Editor
-- TailwindCSS
+- Next.js 14 with TypeScript
+- Monaco Editor for code editing
+- TailwindCSS for styling
+- Zustand for state management
 - WebSocket for real-time features
 
 ### Backend
-- FastAPI
-- Python 3.11+
+- FastAPI (Python 3.11+)
+- MongoDB for data storage
+- Redis for caching
 - WebSocket support
 - Celery for background tasks
-- Redis for caching
 
 ### Infrastructure
-- Docker
+- Docker containerization
 - GitHub Actions for CI/CD
-- MongoDB
-- Redis
+- MongoDB Atlas
+- Redis Cloud
 - Sentry for monitoring
 
-## Getting Started
+## Getting Started 🚀
 
 ### Prerequisites
 - Node.js 18+
 - Python 3.11+
-- Docker
 - MongoDB
 - Redis
+- Docker (optional)
 
 ### Installation
 
@@ -51,38 +64,79 @@ git clone https://github.com/yourusername/ai-code-assistant-studio.git
 cd ai-code-assistant-studio
 ```
 
-2. Install frontend dependencies
+2. Set up the frontend
 ```bash
 cd frontend
 npm install
+cp .env.example .env.local  # Configure your environment variables
+npm run dev
 ```
 
-3. Install backend dependencies
+3. Set up the backend
 ```bash
 cd backend
 python -m venv venv
 source venv/bin/activate  # On Windows: .\venv\Scripts\activate
 pip install -r requirements.txt
-```
-
-4. Set up environment variables
-```bash
-cp .env.example .env
-```
-
-5. Run the development servers
-```bash
-# Frontend
-npm run dev
-
-# Backend
+cp .env.example .env  # Configure your environment variables
 uvicorn app.main:app --reload
 ```
 
-## Contributing
+### Running Tests
 
-Please read [CONTRIBUTING.md](CONTRIBUTING.md) for details on our code of conduct and the process for submitting pull requests.
+Frontend tests:
+```bash
+cd frontend
+npm test
+```
 
-## License
+Backend tests:
+```bash
+cd backend
+pytest
+```
+
+## Project Structure 📁
+
+### Frontend Structure
+```
+frontend/
+├── src/
+│   ├── components/     # React components
+│   ├── hooks/         # Custom React hooks
+│   ├── stores/        # Zustand stores
+│   ├── services/      # API services
+│   ├── utils/         # Utility functions
+│   └── app/           # Next.js pages and layouts
+```
+
+### Backend Structure
+```
+backend/
+├── app/
+│   ├── api/           # API endpoints
+│   ├── core/          # Core functionality
+│   ├── models/        # Database models
+│   ├── schemas/       # Pydantic schemas
+│   ├── services/      # Business logic
+│   └── tests/         # Unit tests
+```
+
+## Contributing 🤝
+
+1. Fork the repository
+2. Create your feature branch (`git checkout -b feature/AmazingFeature`)
+3. Commit your changes (`git commit -m 'feat: Add some AmazingFeature'`)
+4. Push to the branch (`git push origin feature/AmazingFeature`)
+5. Open a Pull Request
+
+## License 📝
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+## Acknowledgments 🙏
+
+- [Monaco Editor](https://microsoft.github.io/monaco-editor/)
+- [FastAPI](https://fastapi.tiangolo.com/)
+- [Next.js](https://nextjs.org/)
+- And all other open source libraries used in this project
