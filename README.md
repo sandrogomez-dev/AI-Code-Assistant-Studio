@@ -60,7 +60,7 @@ An enterprise-level web platform for AI-powered code generation, debugging, and 
 
 1. Clone the repository
 ```bash
-git clone https://github.com/yourusername/ai-code-assistant-studio.git
+git clone https://github.com/sandrogomez-dev/ai-code-assistant-studio.git
 cd ai-code-assistant-studio
 ```
 
