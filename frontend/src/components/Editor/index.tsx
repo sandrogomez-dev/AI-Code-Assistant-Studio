@@ -1,5 +1,8 @@
+import { useCallback } from 'react';
 import CodeEditor from './CodeEditor';
 import EditorToolbar from './EditorToolbar';
+import { useWebSocket } from '@/hooks/useWebSocket';
+import { useAuthStore } from '@/stores/authStore';
 
 interface EditorProps {
   value: string;
@@ -14,6 +17,28 @@ export default function Editor({
   language,
   onLanguageChange,
 }: EditorProps) {
+  const { isAuthenticated } = useAuthStore();
+
+  const handleMessage = useCallback((message: any) => {
+    if (message.type === 'code_update' && message.code !== value) {
+      onChange(message.code);
+    }
+  }, [value, onChange]);
+
+  const { sendMessage } = useWebSocket({
+    onMessage: handleMessage,
+  });
+
+  const handleCodeChange = (newValue: string) => {
+    onChange(newValue);
+    if (isAuthenticated) {
+      sendMessage({
+        type: 'code_update',
+        code: newValue,
+      });
+    }
+  };
+
   const handleFormat = () => {
     // TODO: Implement code formatting
     console.log('Format code');
@@ -35,7 +60,7 @@ export default function Editor({
       <div className="flex-1">
         <CodeEditor
           value={value}
-          onChange={onChange}
+          onChange={handleCodeChange}
           language={language}
         />
       </div>
