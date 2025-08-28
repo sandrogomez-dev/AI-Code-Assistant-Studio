@@ -1,4 +1,5 @@
 import { useAnalysisStore } from '@/stores/analysisStore';
+import { useNotificationStore } from '@/stores/notificationStore';
 import { ChartBarIcon, ShieldCheckIcon } from '@heroicons/react/24/outline';
 import { Tab } from '@headlessui/react';
 import { classNames } from '@/utils/styles';
@@ -17,12 +18,31 @@ export default function AnalysisPanel({ code, language }: AnalysisPanelProps) {
     analyzePerformance,
     analyzeSecurity,
   } = useAnalysisStore();
+  const { addNotification } = useNotificationStore();
 
   const handleAnalyze = async (type: 'performance' | 'security') => {
-    if (type === 'performance') {
-      await analyzePerformance(code, language);
-    } else {
-      await analyzeSecurity(code, language);
+    try {
+      if (type === 'performance') {
+        await analyzePerformance(code, language);
+        addNotification({
+          type: 'success',
+          message: 'Performance analysis completed',
+          duration: 3000,
+        });
+      } else {
+        await analyzeSecurity(code, language);
+        addNotification({
+          type: 'success',
+          message: 'Security analysis completed',
+          duration: 3000,
+        });
+      }
+    } catch (error) {
+      addNotification({
+        type: 'error',
+        message: `Failed to analyze ${type}. Please try again.`,
+        duration: 5000,
+      });
     }
   };
 

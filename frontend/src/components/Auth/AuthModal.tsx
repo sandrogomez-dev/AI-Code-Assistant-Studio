@@ -1,6 +1,7 @@
 import { Fragment, useState } from 'react';
 import { Dialog, Transition } from '@headlessui/react';
 import { useAuthStore } from '@/stores/authStore';
+import { useNotificationStore } from '@/stores/notificationStore';
 import LoginForm from './LoginForm';
 import RegisterForm from './RegisterForm';
 
@@ -12,24 +13,41 @@ interface AuthModalProps {
 export default function AuthModal({ isOpen, onClose }: AuthModalProps) {
   const [isLogin, setIsLogin] = useState(true);
   const { login, register } = useAuthStore();
+  const { addNotification } = useNotificationStore();
 
   const handleLogin = async (email: string, password: string) => {
     try {
       await login(email, password);
+      addNotification({
+        type: 'success',
+        message: 'Successfully logged in',
+        duration: 3000,
+      });
       onClose();
     } catch (error) {
-      console.error('Login error:', error);
-      // TODO: Show error message to user
+      addNotification({
+        type: 'error',
+        message: 'Failed to log in. Please check your credentials.',
+        duration: 5000,
+      });
     }
   };
 
   const handleRegister = async (username: string, email: string, password: string) => {
     try {
       await register(username, email, password);
+      addNotification({
+        type: 'success',
+        message: 'Successfully registered and logged in',
+        duration: 3000,
+      });
       onClose();
     } catch (error) {
-      console.error('Register error:', error);
-      // TODO: Show error message to user
+      addNotification({
+        type: 'error',
+        message: 'Failed to register. Please try again.',
+        duration: 5000,
+      });
     }
   };
 
