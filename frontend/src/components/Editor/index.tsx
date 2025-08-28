@@ -1,11 +1,19 @@
-import { useState } from 'react';
 import CodeEditor from './CodeEditor';
 import EditorToolbar from './EditorToolbar';
 
-export default function Editor() {
-  const [code, setCode] = useState('');
-  const [language, setLanguage] = useState('javascript');
+interface EditorProps {
+  value: string;
+  onChange: (value: string) => void;
+  language: string;
+  onLanguageChange: (language: string) => void;
+}
 
+export default function Editor({
+  value,
+  onChange,
+  language,
+  onLanguageChange,
+}: EditorProps) {
   const handleFormat = () => {
     // TODO: Implement code formatting
     console.log('Format code');
@@ -20,14 +28,14 @@ export default function Editor() {
     <div className="flex flex-col h-full">
       <EditorToolbar
         language={language}
-        onLanguageChange={setLanguage}
+        onLanguageChange={onLanguageChange}
         onFormat={handleFormat}
         onAnalyze={handleAnalyze}
       />
       <div className="flex-1">
         <CodeEditor
-          value={code}
-          onChange={setCode}
+          value={value}
+          onChange={onChange}
           language={language}
         />
       </div>
